@@ -1,19 +1,19 @@
 package middleware
 
 import (
-	"net/http"
 	"checkin-system/database"
+	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
+
 )
 
 // AuthMiddleware Session认证中间件
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
-		
+
 		// 检查session中是否有用户ID
 		userID := session.Get("user_id")
 		if userID == nil {
@@ -31,7 +31,7 @@ func AuthMiddleware() gin.HandlerFunc {
 			ID       uint   `json:"id"`
 			Username string `json:"username"`
 		}
-		
+
 		db := database.GetDB()
 		if err := db.Model(&struct {
 			ID       uint   `json:"id"`
@@ -63,14 +63,14 @@ func OptionalAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		session := sessions.Default(c)
 		userID := session.Get("user_id")
-		
+
 		if userID != nil {
 			db := database.GetDB()
 			var user struct {
 				ID       uint   `json:"id"`
 				Username string `json:"username"`
 			}
-			
+
 			if err := db.Model(&struct {
 				ID       uint   `json:"id"`
 				Username string `json:"username"`
@@ -87,7 +87,7 @@ func OptionalAuthMiddleware() gin.HandlerFunc {
 		} else {
 			c.Set("authenticated", false)
 		}
-		
+
 		c.Next()
 	}
 }

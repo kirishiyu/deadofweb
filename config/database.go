@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+
 )
 
 // DatabaseConfig 数据库配置

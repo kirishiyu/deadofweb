@@ -5,12 +5,13 @@ import (
 )
 
 type CheckIn struct {
-	ID        uint      `json:"id" gorm:"primaryKey"`
-	UserID    uint      `json:"user_id" gorm:"not null"`
-	CheckInAt time.Time `json:"checkin_at" gorm:"not null"`
-	Note      string    `json:"note"`
-	CreatedAt time.Time `json:"created_at"`
+    ID        uint      `json:"id" gorm:"primaryKey"`
+    UserID    uint      `json:"user_id" gorm:"not null"`
+    CheckInAt time.Time `json:"checkin_at" gorm:"column:checkin_at;not null"`  // 添加 column:checkin_at
+    Note      string    `json:"note"`
+    CreatedAt time.Time `json:"created_at"`
 }
+
 
 // IsToday 检查是否是今天的签到
 func (c *CheckIn) IsToday() bool {

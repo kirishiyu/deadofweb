@@ -3,7 +3,7 @@ package services
 import (
 	"bytes"
 	"fmt"
-	"os"
+
 	"text/template"
 
 	"checkin-system/config"
@@ -14,8 +14,8 @@ import (
 
 // EmailService 邮件服务
 type EmailService struct {
-	config  config.EmailConfig
-	dialer  *gomail.Dialer
+	config    config.EmailConfig
+	dialer    *gomail.Dialer
 	templates config.EmailTemplates
 }
 
@@ -35,8 +35,8 @@ func NewEmailService(emailConfig config.EmailConfig) *EmailService {
 	}
 
 	return &EmailService{
-		config:   emailConfig,
-		dialer:   dialer,
+		config:    emailConfig,
+		dialer:    dialer,
 		templates: templates,
 	}
 }
@@ -117,7 +117,7 @@ func (e *EmailService) parseTemplate(emailTemplate config.EmailTemplate, data ma
 	if err != nil {
 		return "", "", err
 	}
-	
+
 	var subjectBuf bytes.Buffer
 	if err := subjectTmpl.Execute(&subjectBuf, data); err != nil {
 		return "", "", err
@@ -128,7 +128,7 @@ func (e *EmailService) parseTemplate(emailTemplate config.EmailTemplate, data ma
 	if err != nil {
 		return "", "", err
 	}
-	
+
 	var bodyBuf bytes.Buffer
 	if err := bodyTmpl.Execute(&bodyBuf, data); err != nil {
 		return "", "", err

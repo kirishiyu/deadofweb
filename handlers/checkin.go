@@ -40,7 +40,7 @@ func (h *CheckInHandler) CheckIn(c *gin.Context) {
 
 	// 检查今天是否已经签到
 	var todayCheckIn models.CheckIn
-	today := time.Now()
+	//today := time.Now()
 	err := h.db.Where("user_id = ? AND DATE(checkin_at) = CURRENT_DATE", userID).First(&todayCheckIn).Error
 	if err == nil {
 		c.JSON(http.StatusConflict, gin.H{"error": "Already checked in today"})
